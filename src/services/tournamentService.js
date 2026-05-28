@@ -68,7 +68,7 @@ class TournamentService {
   async createTournament(name, playerCount, gameName, groupStageEnabled) {
     const finalistCount = this._getFinalistCount(playerCount);
     const stageType = this._getStageType(playerCount);
-    const swissRoundCount = 0;
+    let swissRoundCount = 0;
 
     if (stageType === "swiss") {
       swissRoundCount = this._getSwissRoundCount(playerCount);

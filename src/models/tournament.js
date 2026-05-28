@@ -38,6 +38,7 @@ class Tournament {
     this.tieBreaks = attributes.tie_breaks;// optional
   }
 
+  
   static fromResource(resource) {
     return new Tournament(resource);
   }
