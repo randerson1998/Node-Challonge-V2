@@ -65,6 +65,42 @@ class TournamentService {
     }
   }
 
+  async createTournament(name, playerCount, gameName, groupStageEnabled) {
+    const finalistCount = this._getFinalistCount(playerCount);
+    const stageType = this._getStageType(playerCount);
+    const swissRoundCount = 0;
+
+    if (stageType === "swiss") {
+      swissRoundCount = this._getSwissRoundCount(playerCount);
+    }
+
+    const groupStageOptions = groupStageEnabled
+      ? {
+          stage_type: stageType,
+          group_size: playerCount,
+          participant_count_to_advance_per_group: finalistCount,
+          tie_breaks: [
+            "points difference",
+            "match wins vs tied",
+            "points scored",
+          ],
+        }
+      : undefined;
+    const swissOptions =
+      stageType === "swiss" ? { round_count: swissRoundCount } : undefined;
+
+    const payload = {
+      name: name,
+      tournament_type: "single elimination",
+      game_name: gameName,
+      group_stage_enabled: groupStageEnabled,
+      group_stage_options: groupStageOptions,
+      swiss_options: swissOptions,
+    };
+
+    return await this.create(payload);
+  }
+
   async update(tournamentId, data) {
     try {
       const response = await this.client.request(
@@ -121,6 +157,51 @@ class TournamentService {
         error,
       );
       throw error;
+    }
+  }
+
+  _getStageType(playerCount) {
+    switch (true) {
+      case playerCount <= 8:
+        return "round robin";
+      case playerCount <= 64:
+        return "swiss";
+      case playerCount <= 128:
+        return "double elimination";
+      case playerCount > 128:
+        return "single elimination";
+      default:
+        return "round robin";
+    }
+  }
+
+  _getFinalistCount(playerCount) {
+    switch (true) {
+      case playerCount <= 8:
+        return 2;
+      case playerCount <= 16:
+        return 4;
+      case playerCount <= 48:
+        return 8;
+      case playerCount <= 94:
+        return 16;
+      case playerCount <= 256:
+        return 32;
+      default:
+    }
+    return 2;
+  }
+
+  _getSwissRoundCount(playerCount) {
+    switch (true) {
+      case playerCount <= 16:
+        return 4;
+      case playerCount <= 32:
+        return 5;
+      case playerCount <= 64:
+        return 6;
+      default:
+        return 4;
     }
   }
 }

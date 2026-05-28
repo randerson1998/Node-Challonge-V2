@@ -1,14 +1,31 @@
 {
   "name": "challonge-v2",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.3",
+  "description": "A Node.js wrapper for the Challonge v2 API",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node start.js"
   },
-  "keywords": [],
+  "keywords": [
+    "challonge",
+    "api",
+    "tournament",
+    "gaming",
+    "esports"
+  ],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "files": [
+    "src/",
+    "README.md"
+  ]
 }

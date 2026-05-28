@@ -4,7 +4,7 @@ class ParticipantService {
   constructor(client) {
     this.client = client;
   }
-
+ 
   async list(tournamentId, options = {}) {
     try {
       if (!tournamentId) {

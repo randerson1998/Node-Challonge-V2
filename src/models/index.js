@@ -1,29 +1,29 @@
+const tournamentOptions = require("./tournamentOptions");
+const participantOptions = require("./participantOptions");
+const matchOptions = require("./matchOptions");
+const matchAttachmentOptions = require("./matchAttachmentOptions");
+
 const Tournament = require("./tournament");
-const {
-  TournamentNotifications,
-  TournamentMatchOptions,
-  TournamentRegistrationOptions,
-  TournamentSeedingOptions,
-  TournamentStationOptions,
-  TournamentGroupStageOptions,
-  TournamentOptions,
-  DoubleEliminationOptions,
-  RoundRobinOptions,
-  SwissOptions,
-  FreeForAllOptions,
-} = require("./tournamentOptions");
+const Participant = require("./participant");
+const Match = require("./match");
+const MatchAttachment = require("./matchAttachment");
+const Station = require("./station");
+const StationQueuer = require("./stationQueuer");
+const User = require("./user");
 
 module.exports = {
+  // Spread all options classes directly (TournamentGroupStageOptions, SwissOptions, etc.)
+  ...tournamentOptions,
+  ...participantOptions,
+  ...matchOptions,
+  ...matchAttachmentOptions,
+
+  // Core Data Models
   Tournament,
-  TournamentNotifications,
-  TournamentMatchOptions,
-  TournamentRegistrationOptions,
-  TournamentSeedingOptions,
-  TournamentStationOptions,
-  TournamentGroupStageOptions,
-  TournamentOptions,
-  DoubleEliminationOptions,
-  RoundRobinOptions,
-  SwissOptions,
-  FreeForAllOptions,
+  Participant,
+  Match,
+  MatchAttachment,
+  Station,
+  StationQueuer,
+  User
 };
